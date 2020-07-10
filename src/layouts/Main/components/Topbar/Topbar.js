@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link as RouterLink} from 'react-router-dom';
+import {Link as RouterLink, withRouter} from 'react-router-dom';
 import clsx from 'clsx';
 import {makeStyles} from '@material-ui/styles';
 import {AppBar, Toolbar, Badge, Hidden, IconButton} from '@material-ui/core';
@@ -20,11 +20,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Topbar = props => {
-    const {className, onSidebarOpen, ...rest} = props;
+    const {className, onSidebarOpen, history, ...rest} = props;
 
     const classes = useStyles();
 
     const [notifications] = useState([]);
+
+    const handleLogOut = event => {
+        event.preventDefault();
+        history.push('/sign-in');
+    };
 
     return (
         <AppBar
@@ -52,6 +57,7 @@ const Topbar = props => {
                     <IconButton
                         className={classes.signOutButton}
                         color="inherit"
+                        onClick={handleLogOut}
                     >
                         <InputIcon/>
                     </IconButton>
@@ -69,4 +75,4 @@ const Topbar = props => {
     );
 };
 
-export default Topbar;
+export default withRouter(Topbar);

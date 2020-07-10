@@ -59,6 +59,11 @@ const SignIn = ({history}) => {
         history.push('/sign-up');
     };
 
+    const handleSubmitSignIn = event => {
+        event.preventDefault();
+        history.push('/dashboard');
+    };
+
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -69,7 +74,7 @@ const SignIn = ({history}) => {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form className={classes.form} noValidate onSubmit={handleSubmitSignIn}>
                     <TextField
                         variant="outlined"
                         margin="normal"
