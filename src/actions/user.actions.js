@@ -2,9 +2,8 @@ import { userConstants } from '../constants';
 import { userService } from '../services';
 
 const login = (username, password) => {
-    console.log("signIn");
     return dispatch => {
-        dispatch(request({ username }));
+        //dispatch(request({ username }));
 
         userService.login(username, password)
             .then(
@@ -13,7 +12,8 @@ const login = (username, password) => {
                     //history.push('/');
                 },
                 error => {
-                    dispatch(failure(error));
+                    console.log("error")
+                    //dispatch(failure(error));
                     //dispatch(alertActions.error(error));
                 }
             );
