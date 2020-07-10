@@ -2,6 +2,7 @@ import { userConstants } from '../constants';
 import { userService } from '../services';
 
 const login = (username, password) => {
+    console.log("signIn");
     return dispatch => {
         dispatch(request({ username }));
 

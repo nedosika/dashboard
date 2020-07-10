@@ -7,7 +7,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import {Link} from 'react-router-dom';
+import {Link as RouterLink} from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -21,7 +22,7 @@ const Copyright = () => {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
+            <Link color="inherit" href = "https://material-ui.com/">
                 Your Website
             </Link>{' '}
             {new Date().getFullYear()}
@@ -54,19 +55,23 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SignIn = ({history}) => {
+const SignIn = (props) => {
+    const {loggingIn} = props
     const classes = useStyles();
     const [state, setState] = React.useState({login:"", password: ""})
 
-    const handleSignUp = event => {
-        event.preventDefault();
-        history.push('/sign-up');
-    };
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-    const handleSubmitSignIn = event => {
-        event.preventDefault();
-        history.push('/dashboard');
-    };
+        setState((state) => ({ ...state, submitted: true }));
+        const { login, password } = state;
+        console.log(login, password);
+        const { dispatch } = props;
+        if (login && password) {
+            console.log("signIn");
+            dispatch(userActions.login(login, password));
+        }
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -83,7 +88,7 @@ const SignIn = ({history}) => {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <form className={classes.form} noValidate onSubmit={handleSubmitSignIn}>
+                <form className={classes.form} noValidate onSubmit={handleSubmit}>
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -130,9 +135,12 @@ const SignIn = ({history}) => {
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link to="/sign-up">
+                            {loggingIn &&
+                            <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                            }
+                            <RouterLink to="/sign-up">
                                 {"Don't have an account? Sign Up"}
-                            </Link>
+                            </RouterLink>
                         </Grid>
                     </Grid>
                 </form>
@@ -144,11 +152,11 @@ const SignIn = ({history}) => {
     );
 }
 
-const mapDispatchToProps = (state) => {
+const mapStateToProps = (state) => {
     const { loggingIn } = state.authentication;
     return {
         loggingIn
     };
 }
 
-export default connect(mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps)(SignIn);
