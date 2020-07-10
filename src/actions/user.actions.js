@@ -9,7 +9,7 @@ const login = (username, password) => {
             .then(
                 user => {
                     dispatch(success(user));
-                    history.push('/');
+                    //history.push('/');
                 },
                 error => {
                     dispatch(failure(error));

@@ -32,7 +32,7 @@ const Routes = () => {
                 path="/users"
             />
             <Route
-                render={SignInView}
+                render={(match) => <SignInView {...match}/>}
                 exact
                 path="/sign-in"
             />
