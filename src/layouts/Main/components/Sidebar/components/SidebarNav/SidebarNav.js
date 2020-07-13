@@ -5,10 +5,6 @@ import {NavLink as RouterLink} from 'react-router-dom';
 import clsx from 'clsx';
 import {makeStyles} from '@material-ui/styles';
 import {List, ListItem, Button, colors} from '@material-ui/core';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-
-import { userActions } from '../../../../../../actions';
-import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
     root: {},
@@ -52,10 +48,6 @@ const CustomRouterLink = forwardRef((props, ref) => (
     </div>
 ));
 
-const handleLogout = () => {
-  userActions.logout();
-}
-
 const SidebarNav = props => {
     const {pages, className, ...rest} = props;
 
@@ -83,21 +75,8 @@ const SidebarNav = props => {
                     </Button>
                 </ListItem>
             ))}
-
-            <ListItem className={classes.item} disableGutters>
-                <Button
-                    activeClassName={classes.active}
-                    className={classes.button}
-                    onClick={handleLogout}
-                >
-                    <div className={classes.icon}>
-                        <LockOpenIcon/>
-                    </div>
-                    LogOut
-                </Button>
-            </ListItem>
         </List>
     );
 };
 
-export default connect()(SidebarNav);
+export default SidebarNav;

@@ -17,14 +17,14 @@ const theme = createMuiTheme({
     }
 )
 
-export default class App extends Component {
-    render() {
-        return (
-            <ThemeProvider theme={theme}>
-                <Router>
-                    <Routes/>
-                </Router>
-            </ThemeProvider>
-        );
-    }
+const App = () => {
+    return (
+        <ThemeProvider theme={theme}>
+            <Router>
+                <Routes/>
+            </Router>
+        </ThemeProvider>
+    );
 }
+
+export default App;

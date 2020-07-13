@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
+import {useDispatch} from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,16 +12,16 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/styles';
+import {makeStyles} from '@material-ui/styles';
 import Container from '@material-ui/core/Container';
 
-import { userActions } from '../../actions';
+import {userActions} from '../../actions';
 
 const Copyright = () => {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
-            <Link color="inherit" href = "https://material-ui.com/">
+            <Link color="inherit" href="https://material-ui.com/">
                 Your Website
             </Link>{' '}
             {new Date().getFullYear()}
@@ -56,33 +55,35 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignIn = (props) => {
+    const dispatch = useDispatch();
     const classes = useStyles();
-    const [state, setState] = React.useState({login:"", password: ""});
+    const [state, setState] = React.useState({login: "", password: ""});
+
+    React.useEffect(() => {
+        dispatch(userActions.logout());
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        setState((state) => ({ ...state, submitted: true }));
-        const { login, password } = state;
-        const { dispatch } = props;
-        if (login && password) {
-            dispatch(userActions.login(login, password));
-        }
+        const {login, password} = state;
 
-        props.history.push("/dashboard");
+        if (login && password) {
+            dispatch(userActions.login(login, password, props.history));
+        }
     }
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setState((state) => ({ ...state, [name]: value }));
+        const {name, value} = e.target;
+        setState((state) => ({...state, [name]: value}));
     }
 
     return (
         <Container component="main" maxWidth="xs">
-            <CssBaseline />
+            <CssBaseline/>
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
+                    <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign in
@@ -115,7 +116,7 @@ const SignIn = (props) => {
                         onChange={handleChange}
                     />
                     <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
+                        control={<Checkbox value="remember" color="primary"/>}
                         label="Remember me"
                     />
                     <Button
@@ -142,17 +143,10 @@ const SignIn = (props) => {
                 </form>
             </div>
             <Box mt={8}>
-                <Copyright />
+                <Copyright/>
             </Box>
         </Container>
     );
 }
 
-const mapStateToProps = (state) => {
-    const { loggingIn } = state.authentication;
-    return {
-        loggingIn
-    };
-}
-
-export default connect(mapStateToProps)(SignIn);
+export default SignIn;

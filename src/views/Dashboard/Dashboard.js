@@ -3,10 +3,6 @@ import { connect } from 'react-redux';
 import {Redirect} from 'react-router-dom';
 
 const Dashboard = (props) => {
-    if(!localStorage.getItem("user")) {
-        return(<Redirect exact to="/sign-in"/>)
-    }
-
     return (
         <div>
             Dashboard

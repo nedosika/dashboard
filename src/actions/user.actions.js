@@ -1,7 +1,7 @@
 import { userConstants } from '../constants';
 import { userService } from '../services';
 
-const login = (username, password) => {
+const login = (username, password, history) => {
     const request = (user) => { return { type: userConstants.LOGIN_REQUEST, user } }
     const success = (user) => { return { type: userConstants.LOGIN_SUCCESS, user } }
     const failure = (error) => { return { type: userConstants.LOGIN_FAILURE, error } }
@@ -12,9 +12,8 @@ const login = (username, password) => {
         userService.login(username, password)
             .then(
                 user => {
-                    console.log(user)
                     dispatch(success(user));
-                    //history.push("/dashboard");
+                    history.push("/dashboard");
                 },
                 error => {
                     console.log("error")

@@ -34,12 +34,12 @@ const Routes = () => {
                 path="/users"
             />
             <Route
-                render={(match) => <SignInView {...match}/>}
+                component={SignInView}
                 exact
                 path="/sign-in"
             />
             <Route
-                render={SignUpView}
+                component={SignUpView}
                 exact
                 path="/sign-up"
             />
