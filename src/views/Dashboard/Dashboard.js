@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Redirect} from 'react-router-dom';
 
-const Dashboard = (props) => {
+const Dashboard = () => {
     return (
         <div>
             Dashboard

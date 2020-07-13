@@ -15,23 +15,31 @@ import {
 const Routes = () => {
     return (
         <Switch>
-            {/*{localStorage.getItem("user") && <Redirect exact from="/sign-in" to="/dashboard"/>}*/}
-            <Redirect
-                exact
-                from="/"
-                to="/dashboard"
-            />
+            {/*{!localStorage.getItem("user") && <Redirect exact to="/sign-in"/>}*/}
             <RouteWithLayout
-                component={DashboardView}
+                component={props => (
+                    localStorage.getItem('user')
+                    ? <DashboardView/>
+                    : <Redirect to={{pathname: '/sign-in', state: {from: props.location}}} />
+                    )}
                 exact
                 layout={MainLayout}
                 path="/dashboard"
             />
             <RouteWithLayout
-                component={UserListView}
+                component={props => (
+                    localStorage.getItem('user')
+                        ? <UserListView/>
+                        : <Redirect to={{pathname: '/sign-in', state: {from: props.location}}} />
+                )}
                 exact
                 layout={MainLayout}
                 path="/users"
+            />
+            <Redirect
+                exact
+                from="/"
+                to="/dashboard"
             />
             <Route
                 component={SignInView}
