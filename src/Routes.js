@@ -15,7 +15,6 @@ import {
 const Routes = () => {
     return (
         <Switch>
-            {/*{!localStorage.getItem("user") && <Redirect exact to="/sign-in"/>}*/}
             <RouteWithLayout
                 component={props => (
                     localStorage.getItem('user')

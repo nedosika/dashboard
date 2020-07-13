@@ -1,12 +1,14 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
+import {Link as RouterLink} from 'react-router-dom';
+import {userActions} from '../../actions';
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import {Link as RouterLink} from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -14,8 +16,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/styles';
 import Container from '@material-ui/core/Container';
-
-import {userActions} from '../../actions';
 
 const Copyright = () => {
     return (
@@ -28,7 +28,7 @@ const Copyright = () => {
             {'.'}
         </Typography>
     );
-}
+};
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -71,12 +71,12 @@ const SignIn = (props) => {
         if (login && password) {
             dispatch(userActions.login(login, password, props.history));
         }
-    }
+    };
 
     const handleChange = (e) => {
         const {name, value} = e.target;
         setState((state) => ({...state, [name]: value}));
-    }
+    };
 
     return (
         <Container component="main" maxWidth="xs">
@@ -147,6 +147,6 @@ const SignIn = (props) => {
             </Box>
         </Container>
     );
-}
+};
 
 export default SignIn;
