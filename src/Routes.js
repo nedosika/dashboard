@@ -1,6 +1,6 @@
 import React from 'react';
 import {Switch, Redirect} from 'react-router-dom';
-import { Route } from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import {RouteWithLayout} from './components';
 import {Main as MainLayout} from './layouts';
 
@@ -11,9 +11,11 @@ import {
     SignUp as SignUpView
 } from './views';
 
+
 const Routes = () => {
     return (
         <Switch>
+            {/*{localStorage.getItem("user") && <Redirect exact from="/sign-in" to="/dashboard"/>}*/}
             <Redirect
                 exact
                 from="/"

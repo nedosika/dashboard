@@ -2,29 +2,31 @@ import { userConstants } from '../constants';
 import { userService } from '../services';
 
 const login = (username, password) => {
+    const request = (user) => { return { type: userConstants.LOGIN_REQUEST, user } }
+    const success = (user) => { return { type: userConstants.LOGIN_SUCCESS, user } }
+    const failure = (error) => { return { type: userConstants.LOGIN_FAILURE, error } }
+
     return dispatch => {
-        //dispatch(request({ username }));
+        dispatch(request({ username }));
 
         userService.login(username, password)
             .then(
                 user => {
+                    console.log(user)
                     dispatch(success(user));
-                    //history.push('/');
+                    //history.push("/dashboard");
                 },
                 error => {
                     console.log("error")
-                    //dispatch(failure(error));
+                    dispatch(failure(error));
                     //dispatch(alertActions.error(error));
                 }
             );
     };
-
-    const request = (user) => { return { type: userConstants.LOGIN_REQUEST, user } }
-    const success = (user) => { return { type: userConstants.LOGIN_SUCCESS, user } }
-    const failure = (error) => { return { type: userConstants.LOGIN_FAILURE, error } }
 }
 
 const logout = () => {
+    console.log("logout");
     userService.logout();
     return { type: userConstants.LOGOUT };
 }
