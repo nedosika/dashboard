@@ -16,35 +16,26 @@ import {
 const Routes = () => {
     return (
         <Switch>
+            {/*{*/}
+            {/*    !localStorage.getItem('user') && <Redirect to={"/sign-in"} />*/}
+            {/*}*/}
             <RouteWithLayout
-                component={props => (
-                    localStorage.getItem('user')
-                    ? <DashboardView/>
-                    : <Redirect to={{pathname: '/sign-in', state: {from: props.location}}} />
-                    )}
+                component={DashboardView}
                 exact
                 layout={MainLayout}
                 path="/dashboard"
             />
             <RouteWithLayout
-                component={props => (
-                    localStorage.getItem('user')
-                        ? <UserListView/>
-                        : <Redirect to={{pathname: '/sign-in', state: {from: props.location}}} />
-                )}
-                exact
-                layout={MainLayout}
-                path="/users"
-            />
-            <RouteWithLayout
-                component={props => (
-                    localStorage.getItem('user')
-                        ? <AccountView/>
-                        : <Redirect to={{pathname: '/sign-in', state: {from: props.location}}} />
-                )}
+                component={AccountView}
                 exact
                 layout={MainLayout}
                 path="/account"
+            />
+            <RouteWithLayout
+                component={UserListView}
+                exact
+                layout={MainLayout}
+                path="/users"
             />
             <Redirect
                 exact

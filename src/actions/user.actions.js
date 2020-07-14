@@ -25,7 +25,6 @@ const login = (username, password, history) => {
 }
 
 const logout = () => {
-    console.log("logout");
     userService.logout();
     return { type: userConstants.LOGOUT };
 }
