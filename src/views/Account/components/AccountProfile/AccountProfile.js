@@ -40,9 +40,9 @@ const AccountProfile = props => {
     const authentication = useSelector(state => state.authentication);
 
     const user = {
-        name: authentication.user.username,
-        city: 'Los Angeles',
-        country: 'USA',
+        name: authentication.user.firstName,
+        city: authentication.user.city,
+        country: authentication.user.country,
         timezone: 'GTM-7',
         avatar: '/images/avatars/avatar_12.png'
     };
