@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import {useSelector} from "react-redux";
+
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
@@ -19,16 +21,17 @@ const useStyles = makeStyles(() => ({
 
 const AccountDetails = props => {
   const { className, ...rest } = props;
+  const authentication = useSelector(state => state.authentication);
 
   const classes = useStyles();
 
   const [values, setValues] = useState({
-    firstName: 'Shen',
-    lastName: 'Zhi',
-    email: 'shen.zhi@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
+    firstName: authentication.user.firstName,
+    lastName: authentication.user.lastName,
+    email: authentication.user.email,
+    phone: authentication.user.phone,
+    state: authentication.user.state,
+    country: authentication.user.country
   });
 
   const handleChange = event => {

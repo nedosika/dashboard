@@ -8,7 +8,8 @@ import {
     Dashboard as DashboardView,
     UserList as UserListView,
     SignIn as SignInView,
-    SignUp as SignUpView
+    SignUp as SignUpView,
+    Account as AccountView
 } from './views';
 
 
@@ -34,6 +35,16 @@ const Routes = () => {
                 exact
                 layout={MainLayout}
                 path="/users"
+            />
+            <RouteWithLayout
+                component={props => (
+                    localStorage.getItem('user')
+                        ? <AccountView/>
+                        : <Redirect to={{pathname: '/sign-in', state: {from: props.location}}} />
+                )}
+                exact
+                layout={MainLayout}
+                path="/account"
             />
             <Redirect
                 exact
